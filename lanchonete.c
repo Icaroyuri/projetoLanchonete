@@ -10,11 +10,12 @@ int main(){
  
   // variaveis
  int matricula;
- char nome[100];
- char endereco[200];
+ char codigoitem[15];
+ char nome[100], nomepro[100];
+ char endereco[200], descpro[200];
  char telefone[14];
- int dia, mes, ano;
- double salario;
+ int dia, mes, ano, diap, mesp, anop, quantiten;
+ double salario, preco;
  char turno[6];
  int opcao;
  int continuar = 1;
@@ -31,25 +32,31 @@ int main(){
   printf("| 0 - Sair                                                        |\n");
   printf("|_________________________________________________________________|\n");
   printf("Opção:)>");
-  scanf("%d", &d);
+  if (scanf("%d", &d) !=1){
+    int clear;
+    while((clear = getchar()) != '\n');
+    d = -1;
+  }
   
       switch (d){
       case 1:
-          //coleta de dados e repetição
+          //coleta de dados defuncionarios e repetição
           continuar = 1;
           while(continuar){
-            //menu
+            //menu funcionários
 
                 printf("\n|================ Menu Funcionários ================| \n");
                 printf("| Digite 1 para cadastrar um funcionário;           |\n");
                 printf("| Digite 2 para visualizar os dados do funcionário; |\n");
-                printf("| Digite 0 para sair do programa!                    |\n");
+                printf("| Digite 0 para sair da seção!                      |\n");
                 printf("|====================================================|\n");
                 printf("Opção: ");
-                scanf("%d", &opcao);
+                if (scanf("%d", &opcao) !=1){
+                    int clear;
+                    while((clear = getchar()) != '\n');
+                    opcao = -1;
+                }
                   
-                
-
                 switch (opcao){
                   
                   case 1://cadastrar funcionário
@@ -92,7 +99,7 @@ int main(){
                       printf("Endereço: %s\n",endereco);
                       printf("Telefone: %s\n", telefone);
                       printf("Data de nascimento: %02d/%02d/%04d\n", dia, mes,ano);
-                      printf("Salário: %.2lf\n", salario);
+                      printf("Salário:R$ %.2lf\n", salario);
                       printf("Turno de trabalho: %s\n",turno);
                       printf("******************************\n");
                     
@@ -109,9 +116,77 @@ int main(){
                 }
         break;
       case 2:
-        printf("Sistema de Estoque.\n");
-        break;
+         //coleta de dados de estoque e repetição
+          continuar = 1;
+          while(continuar){
+            //menu de esoque
+          
 
+                printf("\n|================ Menu de Estoque =================| \n");
+                printf("| Digite 1 para cadastrar um iten no estoque;      |\n");
+                printf("| Digite 2 para visualizar os dados do iten;       |\n");
+                printf("| Digite 0 para sair da seção!                   |\n");
+                printf("|==================================================|\n");
+                printf("Opção: ");
+                if (scanf("%d", &opcao) !=1){
+                    int clear;
+                    while((clear = getchar()) != '\n');
+                    opcao = -1;
+                }
+                  
+                switch (opcao){
+                  
+                  case 1://cadastrar o iten
+                      printf("Digite o código do iten: \n");
+                      fgets(codigoitem, sizeof(codigoitem), stdin);
+                      codigoitem[strcspn(codigoitem,"\n")]='\0';
+
+                     
+                      printf("Digite o nome do produto: \n");
+                      fgets(nomepro, sizeof(nomepro), stdin);
+                      nomepro[strcspn(nomepro,"\n")]='\0';
+
+                      printf("Digite a descrição do produto: \n");
+                      fgets(descpro, sizeof(descpro), stdin);
+                      descpro[strcspn(descpro,"\n")]='\0';
+
+                      printf("Digite o preço do produto: \n");
+                      scanf("%lf", &preco);
+                                            
+                      printf("Digite a Data de validade do produto dia, mês e ano: \n");
+                      scanf("%d %d %d", &diap, &mesp, &anop);
+
+                      printf("Digite a quantidade do iten em estoque: \n");
+                      scanf("%d", &quantiten);
+
+                      printf("\n=>=>=>=>=>=>=>=>=> Produto Cadastro com Sucesso! <=<=<=<=<=<=<=<=<=\n");
+                    break;
+                    
+                  case 2:
+                      printf("\n*************** Iten cadastrado e em Estoque ****************\n");
+                      printf("Código do Iten: %s\n", codigoitem);
+                      printf("Nome do produto: %s\n", nomepro);
+                      printf("Descrição do produto: %s\n",descpro);
+                      printf("Preço do Produto: R$ %.2lf\n", preco);
+                      printf("Data de Validade do produto: Val %02d/%02d/%04d\n", diap, mesp,anop);
+                      printf("Quantidade do iten em estoque: %d\n", quantiten);
+                      printf("*************************************************************\n");
+                    
+                    break;
+                  
+                    case 0:
+                    printf("Voltando ao Menu principal ...\n");
+                    continuar = 0;
+                    break;
+                  
+                  default:
+                      printf("Opção invalida!\n");
+                    break;
+                }
+              }
+        break;
+      
+     
       case 3:
         printf("Sistema de Vendas.\n");
         break;
