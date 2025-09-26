@@ -1,3 +1,13 @@
+/*
+Grupo:
+Gustavo Henrique Nascimento Silva
+Matheus Augusto Eleoterio De Souza
+Denilson Porfirio de Lima 
+Polibio Cássio Alves da Costa 
+Mateus Melo Rodrigues Morais
+Felipe Alves Figueiredo
+Icaro Yuri Veloso Rodrigues*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -10,22 +20,32 @@ int main()
   setlocale(LC_ALL, "Portuguese");
 
   // variaveis
-  int matricula;
-  char codigoitem[15];
-  char nome[100], nomepro[100];
-  char endereco[200], descpro[200];
-  char telefone[14];
-  int dia, mes, ano, diap, mesp, anop;
-  double salario, preco;
-  char turno[6];
-  int opcao;
+  int matricula = 0;
+  char codigoitem[15] = "";
+  char nome[100] = "";
+  char nomepro[100] = "";
+  char endereco[200] = "";
+  char descpro[200] = "";
+  char telefone[14] = "";
+  int dia = 0;
+  int mes = 0;
+  int ano = 0;
+  int diap = 0;
+  int mesp = 0;
+  int anop = 0;
+  double salario = 0;
+  double preco = 0;
+  char turno[6] = "";
+  int opcao = 0;
   int continuar = 1;
   int d = -1;
   int quantVendidos = 0;
-  int fatura;
-  char codigoVenda[15];
-  int matriculaVenda;
+  double fatura = 0.0;
+  char codigoVenda[15] = "";
+  int matriculaVenda = 0;
   int quantiten = 0;
+  int funcionario_cadastrado = 0;
+  int item_cadastrado = 0;
 
   do
   {
@@ -91,7 +111,7 @@ int main()
           fgets(telefone, sizeof(telefone), stdin);
           telefone[strcspn(telefone, "\n")] = '\0';
 
-          printf("Digite a Data de nascimento do Funcionário dia, mês e ano: \n");
+          printf("Digite a Data de nascimento do Funcionário dia, mês e ano, separados por espaços (ex: xx xx xxxx): \n");
           scanf("%d %d %d", &dia, &mes, &ano);
 
           printf("Digite o valor do salário do Funcionário: \n");
@@ -104,19 +124,34 @@ int main()
           turno[strcspn(turno, "\n")] = '\0';
 
           printf("\n=>=>=>=>=>=>=>=>=> Cadastro finalizado <=<=<=<=<=<=<=<=<=\n");
-
+          funcionario_cadastrado = 1;
           break;
-        case 2:
-          printf("\n*******************************\n");
-          printf("Matricula: %05d\n", matricula);
-          printf("Nome: %s\n", nome);
-          printf("Endereço: %s\n", endereco);
-          printf("Telefone: %s\n", telefone);
-          printf("Data de nascimento: %02d/%02d/%04d\n", dia, mes, ano);
-          printf("Salário:R$ %.2lf\n", salario);
-          printf("Turno de trabalho: %s\n", turno);
-          printf("******************************\n");
 
+        case 2: // Visualizar o funcionário
+          if (funcionario_cadastrado == 1)
+          {
+            printf("\n*******************************\n");
+            printf("Matricula: %05d\n", matricula);
+            printf("Nome: %s\n", nome);
+            printf("Endereço: %s\n", endereco);
+            printf("Telefone: %s\n", telefone);
+            printf("Data de nascimento: %02d/%02d/%04d\n", dia, mes, ano);
+            printf("Salário:R$ %.2lf\n", salario);
+            printf("Turno de trabalho: %s\n", turno);
+            printf("******************************\n");
+          }
+          else
+          {
+            printf("\n*** Nenhum funcionário cadastrado ***\n");
+            printf("Matricula: \n");
+            printf("Nome: \n");
+            printf("Endereço: \n");
+            printf("Telefone: \n");
+            printf("Data de nascimento: \n");
+            printf("Salário: \n");
+            printf("Turno de trabalho: \n");
+            printf("*************************************\n");
+          }
           break;
         case 0:
           printf("Voltando ao Menu principal ...\n");
@@ -134,7 +169,7 @@ int main()
       continuar = 1;
       while (continuar)
       {
-        // menu de esoque
+        // menu de estoque
 
         printf("\n|================ Menu de Estoque =================| \n");
         printf("| Digite 1 para cadastrar um iten no estoque;      |\n");
@@ -153,7 +188,8 @@ int main()
         switch (opcao)
         {
 
-        case 1: // cadastrar o iten
+        case 1: // cadastrar o item
+          getchar();
           printf("Digite o código do iten: \n");
           fgets(codigoitem, sizeof(codigoitem), stdin);
           codigoitem[strcspn(codigoitem, "\n")] = '\0';
@@ -169,25 +205,40 @@ int main()
           printf("Digite o preço do produto: \n");
           scanf("%lf", &preco);
 
-          printf("Digite a Data de validade do produto dia, mês e ano: \n");
+          printf("Digite a Data de validade do produto dia, mês e ano, separados por espaço (ex: xx xx xxxx): \n");
           scanf("%d %d %d", &diap, &mesp, &anop);
 
           printf("Digite a quantidade do iten em estoque: \n");
           scanf("%d", &quantiten);
 
           printf("\n=>=>=>=>=>=>=>=>=> Produto Cadastro com Sucesso! <=<=<=<=<=<=<=<=<=\n");
+          item_cadastrado = 1;
+
           break;
 
-        case 2:
-          printf("\n*************** Iten cadastrado e em Estoque ****************\n");
-          printf("Código do Iten: %s\n", codigoitem);
-          printf("Nome do produto: %s\n", nomepro);
-          printf("Descrição do produto: %s\n", descpro);
-          printf("Preço do Produto: R$ %.2lf\n", preco);
-          printf("Data de Validade do produto: Val %02d/%02d/%04d\n", diap, mesp, anop);
-          printf("Quantidade do iten em estoque: %d\n", quantiten);
-          printf("*************************************************************\n");
-
+        case 2: // Visualizar o item
+          if (item_cadastrado == 1)
+          {
+            printf("\n*************** Iten cadastrado e em Estoque ****************\n");
+            printf("Código do Iten: %s\n", codigoitem);
+            printf("Nome do produto: %s\n", nomepro);
+            printf("Descrição do produto: %s\n", descpro);
+            printf("Preço do Produto: R$ %.2lf\n", preco);
+            printf("Data de Validade do produto: Val %02d/%02d/%04d\n", diap, mesp, anop);
+            printf("Quantidade do iten em estoque: %d\n", quantiten);
+            printf("*************************************************************\n");
+          }
+          else
+          {
+            printf("\n*************** Nenhum item cadastrado ****************\n");
+            printf("Código do Iten: \n");
+            printf("Nome do produto: \n");
+            printf("Descrição do produto: \n");
+            printf("Preço do Produto: \n");
+            printf("Data de Validade do produto: \n");
+            printf("Quantidade do iten em estoque: \n");
+            printf("*******************************************************\n");
+          }
           break;
 
         case 0:
@@ -203,13 +254,22 @@ int main()
       break;
 
     case 3:
+      if (funcionario_cadastrado == 0 || item_cadastrado == 0)
+      {
+        printf("\n|==================== ATENÇÃO ====================|\n");
+        printf("| É necessário cadastrar um funcionário e um item |\n");
+        printf("| antes de registrar uma venda.                   |\n");
+        printf("| Utilize as opções 1 e 2 do menu principal.    |\n");
+        printf("|=================================================|\n\n");
+        break;
+      }
       if (quantVendidos != 0)
       {
         printf("\n|================ Última Venda =================| \n");
         printf("Nome do produto: %s\n", nomepro);
         printf("Nome do vendedor: %s\n", nome);
         printf("Quantidade vendida: %d\n", quantVendidos);
-        printf("Total do valor: %d\n", fatura);
+        printf("Total do valor: %lf\n", fatura);
       }
       else
       {
@@ -238,6 +298,7 @@ int main()
         switch (opcao)
         {
         case 1:
+          getchar();
           printf("Digite o código do iten: \n");
           fgets(codigoVenda, sizeof(codigoVenda), stdin);
           codigoVenda[strcspn(codigoVenda, "\n")] = '\0';
@@ -257,7 +318,6 @@ int main()
           {
             fatura = quantVendidos * preco;
             quantiten = quantiten - quantVendidos;
-
           }
           break;
 
@@ -282,7 +342,7 @@ int main()
       break;
     }
 
-  } while (d != 0 && d < 4);
+  } while (d != 0);
 
   return 0;
 }
